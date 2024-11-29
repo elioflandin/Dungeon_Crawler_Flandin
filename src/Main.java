@@ -22,7 +22,7 @@ public class Main {
         displayZoneFrame.setDefaultCloseOperation(EXIT_ON_CLOSE); // Exit on close
 
         // Create the hero character
-        hero = new HeroWithHealth(200, 300,
+        hero = new HeroWithHealth(64, 64,
                 ImageIO.read(new File("./img/heroTileSheetLowRes.png")), 48, 50,
                 ImageIO.read(new File("./img/life_bar_remove.png")));
 
@@ -31,6 +31,7 @@ public class Main {
         physicEngine = new PhysicEngine();
         gameEngine = new GameEngine((HeroWithHealth) hero, physicEngine.getEnvironment());
         gameEngine.setRenderEngine(renderEngine);
+        gameEngine.setPhysicEngine(physicEngine);
 
         // Set up timers to update rendering, physics, and game logic at fixed intervals
         Timer renderTimer = new Timer(50, (time) -> renderEngine.update());

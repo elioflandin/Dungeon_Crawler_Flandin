@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class PhysicEngine implements Engine {
     private ArrayList<DynamicSprite> movingSpriteList;  // List of dynamic sprites that can move
     private ArrayList<Sprite> environment;              // List of all sprites in the environment, including obstacles
+    private boolean gameOver = false;
 
     public PhysicEngine() {
         movingSpriteList = new ArrayList<>();
@@ -32,6 +33,9 @@ public class PhysicEngine implements Engine {
     public ArrayList<Sprite> getEnvironment() {
         return environment;
     }
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
 
     public void setEnvironment(ArrayList<Sprite> environment) {
         this.environment = environment;
@@ -51,11 +55,10 @@ public class PhysicEngine implements Engine {
     /**
      * Updates the state of all moving sprites by attempting to move them.
      */
-    @Override
     public void update() {
         // Iterate through all moving sprites and attempt to move them
         for (DynamicSprite dynamicSprite : movingSpriteList) {
-            dynamicSprite.moveIfPossible(environment);  // Check if the sprite can move and update position
+            dynamicSprite.moveIfPossible(environment, gameOver);  // Check if the sprite can move and update position
         }
     }
 }

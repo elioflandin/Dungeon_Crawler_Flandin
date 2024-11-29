@@ -8,6 +8,7 @@ public class DynamicSprite extends SolidSprite {
     private double timeBetweenFrame = 250; // Time in milliseconds between animation frames
     private boolean isWalking = true; // Indicates if the sprite is walking
     private final int spriteSheetNumberOfColumn = 10; // Number of columns in the sprite sheet
+    boolean gameOver; // Indicates if the game is over
 
     /**
      * Constructs a DynamicSprite, Extends SolidSprite, with the specified position, image, and dimensions.
@@ -88,7 +89,11 @@ public class DynamicSprite extends SolidSprite {
      *
      * @param environment A list of all sprites in the current environment.
      */
-    public void moveIfPossible(ArrayList<Sprite> environment) {
+    public void moveIfPossible(ArrayList<Sprite> environment, boolean gameOver) {
+        if (gameOver) {
+            return;  // Do not allow movement if the game is over
+        }
+
         if (isMovingPossible(environment)) {
             move();
         } else {

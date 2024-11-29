@@ -9,6 +9,7 @@ public class GameEngine implements Engine, KeyListener {
     private Image gameOverImage; // Image displayed when the game ends
     private boolean gameOver = false; // Indicates whether the game is over
     private RenderEngine renderEngine; // Responsible for rendering the game state
+    private PhysicEngine physicEngine; // Responsible for rendering the game state
 
     /**
      * Constructs a new GameEngine with a hero and an environment.
@@ -34,6 +35,7 @@ public class GameEngine implements Engine, KeyListener {
         if (hero.getHealth() <= 0) { // Check if the hero's health is depleted
             gameOver = true; // Set game-over state
             renderEngine.setGameOver(true);
+            physicEngine.setGameOver(true);
         }
         if (!gameOver) {
             hero.checkCollisionWithObstacles(environment); // Check collisions with environment
@@ -49,6 +51,11 @@ public class GameEngine implements Engine, KeyListener {
         this.renderEngine = renderEngine;
     }
 
+
+    public void setPhysicEngine(PhysicEngine physicEngine) {
+        this.physicEngine = physicEngine;
+    }
+
     /**
      * Handles key press events for controlling the hero and triggering actions.
      *
@@ -56,6 +63,10 @@ public class GameEngine implements Engine, KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
+        if (gameOver) {
+            return;  // Do nothing if the game is over
+        }
+
         System.out.println("Key pressed: " + e.getKeyCode());
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:

@@ -54,7 +54,7 @@ public class RenderEngine extends JPanel implements Engine {
         gameOverImage = new ImageIcon("./img/Game_Over.png").getImage();
         if (gameOverImage != null) {
             // Draw the game-over image at the center of the screen
-            int centerX = 192 - gameOverImage.getWidth(null) / 2;
+            int centerX = 352 - gameOverImage.getWidth(null) / 2;
             int centerY = 288 - gameOverImage.getHeight(null) / 2;
             g.drawImage(gameOverImage, centerX, centerY, null);
         } else {
@@ -77,6 +77,7 @@ public class RenderEngine extends JPanel implements Engine {
         // Draw the game-over screen if the game is over
         if (gameOver) {
             drawGameOver(g);
+            return; // stop any further updates or actions
         }
     }
 
